@@ -1,0 +1,290 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+
+<head>
+  <title></title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+  <script src="./lib/jquery.js"></script>
+  <script src="./lib/jquery-ui.js"></script>
+
+  <script src="testapp.js"></script>
+
+</head>
+
+<body>
+  <div class="side-panel">
+    <h1><span>Table Data</span> <i class="fa fa-times" id="sidebar_close"></i></h1>
+    <div class="inner">
+      <table id="Side_Panel_KPI_Table">
+        <tr>
+          <th>
+            Name
+          </th>
+          <th>
+            Email
+          </th>
+          <th>
+            Phone No.
+          </th>
+        </tr>
+        <tr>
+          <td>
+            Joh Doe
+          </td>
+          <td>
+            johndoe@gmail.com
+          </td>
+          <td>
+            0123456789  
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <div onselectstart="javascript:/*IE8 hack*/return false" id="mpmLoadBalancingDisplayPanel"
+    style="position: relative; height: 100%; overflow: hidden; margin: 0px; padding: 0px; border: none;">
+    <div id="toolbar" class="ui-layout-pane">
+      <div class="toolbar-items">
+        <div class="item-box">
+          <div class="center-box">
+            <div>
+              <ul class="item-list">
+                <li class="has-dropdown dropbtn" onclick="Dropdown('dropdown_menu')" onmouseleave="HideDropdown('dropdown_menu')">
+                  <button>
+                  <img src="images/1.svg" alt="Share" style="width: 30px;">
+                  <div id="dropdown_menu" class="dropdown-content">
+                    <a href="javascript:void(0)">Open</a>
+                    <a href="javascript:void(0)">New</a>
+                    <a href="javascript:void(0)">Close Current</a>
+                  </div>
+                </li>
+              </ul>
+              <ul class="item-list">
+                <li class="has-dropdown dropbtn" onclick="Dropdown('dropdown_menu_update')" onmouseleave="HideDropdown('dropdown_menu_update')">
+                  <button>
+                  <img src="images/2.svg" alt="Share" style="width: 20px;">
+                  <img src="images/15.svg" alt="" style="width: 8px;">
+                  <div id="dropdown_menu_update" class="dropdown-content">
+                    <a href="javascript:void(0)">Open</a>
+                    <a href="javascript:void(0)">New</a>
+                    <a href="javascript:void(0)">Close Current</a>
+                  </div>
+                </li>
+                <li>
+                  <button onclick="SaveControlButton()">
+                    <img src="images/3.svg" alt="Share" style="width: 20px;">
+                  </button>
+                </li>
+              </ul>
+            </div>
+            <h5 class="title">
+              Save
+            </h5>
+          </div>
+        </div>
+        <div class="item-box">
+          <div class="center-box center-box-1">
+            <div>
+              <ul class="item-list">
+                <li>
+                  <button onclick="redoControlButton()">
+                    <img src="images/4.svg" alt="Share" style="width: 20px;">
+                  </button>
+                </li>
+                <li>
+                  <button onclick="undoControlButton()">
+                    <img src="images/5.svg" alt="Share" style="width: 20px;">
+                  </button>
+                </li>
+                <li>
+                  <button onclick="expandContorlButton()">
+                    <img src="images/6.svg" alt="Share" style="width: 18px;">
+                  </button>
+                </li>
+              </ul>
+              <ul class="item-list">
+                <li>
+                  <button onclick="ReloadControlButton()">
+                    <img src="images/7.svg" alt="Share" style="width: 18px;">
+                  </button>
+                </li>
+                <li>
+                  <button onclick="refreshContorlButton()">
+                    <img src="images/8.svg" alt="Share" style="width: 18px;">
+                  </button>
+                </li>
+              </ul>
+            </div>
+            <h5 class="title">
+              Controls
+            </h5>
+          </div>
+        </div>
+        <div class="item-box">
+          <div class="center-box conten-2">
+            <div>
+              <ul class="item-list">
+                <li class="has-dropdown dropbtn" onclick="Dropdown('dropdown_menu_address')" onmouseleave="HideDropdown('dropdown_menu_address')">
+                  <button>
+                    <img src="images/9.svg" alt="Share" style="width: 28px;">
+                  </button>
+                  <div id="dropdown_menu_address" class="dropdown-content">
+                    <a href="javascript:void(0)">Open</a>
+                    <a href="javascript:void(0)">New</a>
+                    <a href="javascript:void(0)">Close Current</a>
+                  </div>
+                </li>
+                <li class="has-dropdown dropbtn" onclick="Dropdown('dropdown_menu_user')" onmouseleave="HideDropdown('dropdown_menu_user')">
+                  <button>
+                    <img src="images/10.svg" alt="Share" style="width: 28px;">
+                  </button>
+                  <div id="dropdown_menu_user" class="dropdown-content">
+                    <a href="javascript:void(0)">Open</a>
+                    <a href="javascript:void(0)">New</a>
+                    <a href="javascript:void(0)">Close Current</a>
+                  </div>
+                </li>
+              </ul>
+              <ul class="item-list">
+                <li>
+                  <button onclick="additionOpratorButton()">
+                    <img src="images/11.svg" alt="Share" style="width: 18px;">
+                  </button>
+                </li>
+                <li>
+                  <button onclick="editOpratorButton()" >
+                    <img src="images/12.svg" alt="Share" style="width: 20px;margin-left: 10px;">
+                  </button>
+                </li>
+              </ul>
+            </div>
+            <h5 class="title">
+              Operator
+            </h5>
+          </div>
+        </div>
+        <div class="item-box has-text has-input">
+          <div>
+            <ul class="item-list">
+              <li>
+                <span>
+                  Demand
+                </span>
+                <input type="text" id="demand">
+              </li>
+              <li>
+                <span>
+                  Efficiency
+                </span>
+                <input type="text" id="efficiency">
+              </li>
+              <li>
+                <span>
+                  Sift Time
+                </span>
+                <input type="text" id="sift_time">
+              </li>
+            </ul>
+          </div>
+          <h5 class="title">
+            User Inputs
+          </h5>
+        </div>
+        <div class="item-box has-text">
+          <div>
+            <ul class="item-list">
+              <li class="has-dropdown dropbtn" onclick="Dropdown('dropdown_menu_normal')" onmouseleave="HideDropdown('dropdown_menu_normal')" >
+                <span style="text-align: left;">
+                  <span id="label-Normal" class="label-min">Normal</span>
+                  
+                  <img src="images/15.svg" alt="" width="10">
+                  <div id="dropdown_menu_normal" class="dropdown-content">
+                    <a href="javascript:void(0)">Open</a>
+                    <a href="javascript:void(0)">New</a>
+                    <a href="javascript:void(0)">Close Current</a>
+                  </div>
+                </span>
+              </li>
+              <li class="has-dropdown dropbtn" onclick="Dropdown('dropdown_menu_operator')" onmouseleave="HideDropdown('dropdown_menu_operator')" >
+                <span style="text-align: left;">
+                  <span id="label-Operator"  class="label-min">Operator</span>
+                  <img src="images/15.svg" alt="" width="10">
+                  <div id="dropdown_menu_operator" class="dropdown-content">
+                    <a href="javascript:void(0)">Open</a>
+                    <a href="javascript:void(0)">New</a>
+                    <a href="javascript:void(0)">Close Current</a>
+                  </div>
+                </span>
+              </li>
+            </ul>
+          </div>
+          <h5 class="title">
+            View Type
+          </h5>
+        </div>
+        <div class="item-box has-text">
+          <div class="center-box">
+            <div>
+              <ul class="item-list d-flex">
+                <li class="has-dropdown dropbtn" onclick="Dropdown('dropdown_menu_timer')" onmouseleave="HideDropdown('dropdown_menu_timer')">
+                  <button>
+                    <img src="images/13.svg" alt="Share" style="width: 28px;">
+                  </button>
+                  <div id="dropdown_menu_timer" class="dropdown-content">
+                    <a href="javascript:void(0)">Open</a>
+                    <a href="javascript:void(0)">New</a>
+                    <a href="javascript:void(0)">Close Current</a>
+                  </div>
+                </li>
+                <li>
+                  <button id="sidebar_control">
+                    <img src="images/14.svg" alt="Share" style="width: 30px;">
+                  </button>
+                </li>
+              </ul>
+              <ul class="item-list">
+                <li class="has-dropdown dropbtn" onclick="Dropdown('dropdown_menu_compare')" >
+                  Compare
+                  <img src="images/15.svg" alt="" width="10">
+                  <div id="dropdown_menu_compare" class="dropdown-content">
+                    <a href="javascript:void(0)">Open </a>
+                    <a href="javascript:void(0)">New</a>
+                    <a href="javascript:void(0)">Close Current</a>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <h5 class="title">
+              Other
+            </h5>
+          </div>
+        </div>
+      </div>
+    </div>
+      <div id="mpmLoadBalancingDisplayPanel_canvas" class="" style="width:3000px; height:3000px;"></div>
+  </div>
+  <script>
+  
+   function Dropdown(id) {
+      document.getElementById(id).classList.toggle("show");
+    }
+   //Hide Dropdown Functionality
+   function HideDropdown(id) {
+      document.getElementById(id).classList.remove("show");
+    }
+    
+    $("#sidebar_control").click(function(){
+      $(".side-panel").show()
+    })
+    $("#sidebar_close").click(function(){
+      $(".side-panel").hide()
+    })
+    // let svg_height = $("#mpmLoadBalancingDisplayPanel_canvas svg").height();
+    // $("#mpmLoadBalancingDisplayPanel_canvas").css("height" , svg_height);
+    // console.log(svg_height)
+  </script>
+</body>
+
+</html>
