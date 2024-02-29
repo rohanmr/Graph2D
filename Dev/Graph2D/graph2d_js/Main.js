@@ -821,80 +821,7 @@ function updateLimitLine() {
   DrawGraph();
 }
 
-function createTextBox(container) {
-  var textbox = document.createElement("input");
-  textbox.type = "text";
-  textbox.classList.add("custom_textbox");
-  textbox.placeholder = "Demand";
-
-  textbox.addEventListener("keydown", function (event) {
-    if (event.key === "Enter") {
-      event.preventDefault(); // Prevent form submission or line break
-
-      demandTextBoxValue = textbox.value;
-      if (demandTextBoxValue != "") {
-        updateLimitLine();
-        console.log("Input Value:", demandTextBoxValue);
-      }
-    }
-  });
-  // Add an event listener to the textbox mousedown event
-  textbox.addEventListener("mousedown", function (event) {
-    event.stopPropagation();
-  });
-  container.appendChild(textbox);
-
-  // efficiency line
-  var textboxEfficiency = document.createElement("input");
-  textboxEfficiency.type = "text";
-  textboxEfficiency.classList.add("custom_textbox");
-  textboxEfficiency.placeholder = "Efficiency";
-
-  textboxEfficiency.addEventListener("keydown", function (event) {
-    if (event.key === "Enter") {
-      event.preventDefault(); // Prevent form submission or line break
-
-      var inputValue = textboxEfficiency.value;
-      if (inputValue != "") {
-        efficiencyTextBoxValue = Number(inputValue);
-        updateLimitLine();
-        console.log("Input Value:", inputValue);
-      }
-    }
-  });
-
-  // Add an event listener to the textbox mousedown event
-  textboxEfficiency.addEventListener("mousedown", function (event) {
-    event.stopPropagation();
-  });
-  container.appendChild(textboxEfficiency);
-
-  // Available time per shift
-  var textboxAvailableTimePerShift = document.createElement("input");
-  textboxAvailableTimePerShift.type = "text";
-  textboxAvailableTimePerShift.classList.add("custom_textbox");
-  textboxAvailableTimePerShift.placeholder = "Shift Time";
-
-  textboxAvailableTimePerShift.addEventListener("keydown", function (event) {
-    if (event.key === "Enter") {
-      event.preventDefault(); // Prevent form submission or line break
-
-      var inputValue = textboxAvailableTimePerShift.value;
-      if (inputValue != "") {
-        kpiDataMap["Available time per shift"] = inputValue;
-        console.log("Input Value:", inputValue);
-        updateKPITableData(kpiDataMap, kpiSecondaryDataMap);
-        sampleKPITableData(kpiDataMap, kpiSecondaryDataMap);
-        updateLimitLine();
-      }
-    }
-  });
-  // Add an event listener to the textbox mousedown event
-  textboxAvailableTimePerShift.addEventListener("mousedown", function (event) {
-    event.stopPropagation();
-  });
-  container.appendChild(textboxAvailableTimePerShift);
-}
+function createTextBox(container) {}
 
 function createUI() {
   const canvasContainer = document.getElementById(
@@ -931,62 +858,10 @@ function createUI() {
   createTextBox(buttonContainer);
 
   // Define an array of button data
-  var buttonData = [
-    {
-      tooltip: "",
-      label: '<span class="fas fa-undo"></span>',
-      handler: function () {
-        customUndo();
-      },
-    },
-    {
-      tooltip: "",
-      label: '<span class="fas fa-redo"></span>',
-      handler: function () {
-        customRedo();
-      },
-    },
-    {
-      tooltip: "",
-      label: '<span class="fas fa-expand"></span>',
-      handler: function () {
-        resetZoom();
-      },
-    },
-    {
-      tooltip: "",
-      label: '<span class="fa fa-repeat"></span> Reload',
-      handler: function () {
-        refreshGraph();
-      },
-    },
-    {
-      tooltip: "",
-      label: '<span class="fa fa-refresh"></span> Refresh',
-      handler: function () {
-        resizeCanvas();
-      },
-    },
-  ];
-
-  // Create buttons dynamically
-  createButton(buttonData, buttonContainer);
-
-  //Time Unit Label
-  var timeUnitLabel = document.createElement("timeUnitLabel");
-  timeUnitLabel.textContent = "Time unit: ";
-  timeUnitLabel.style.position = "relative";
-  timeUnitLabel.style.marginLeft = "15px";
-  timeUnitLabel.style.font = "16px Arial";
-  timeUnitLabel.style.fontWeight = "bold";
-  buttonContainer.appendChild(timeUnitLabel);
 
   //Time Unit Combo
   var timeUnitOptions = ["Second", "Minute", "Hour"]; // Replace with your desired options
-  createCombo(timeUnitOptions, buttonContainer, function (selectedValue) {
-    console.log("Time Unit selected:", selectedValue);
-    changeTimeUnitForY(selectedValue);
-  });
+
   addOptionsToComboBoxDiv(
     "dropdown_menu_timer",
     timeUnitOptions,
@@ -996,21 +871,10 @@ function createUI() {
     }
   );
   //Export Label
-  var exportLabel = document.createElement("exportLabel");
-  exportLabel.textContent = "Export to: ";
-  exportLabel.style.position = "relative";
-  exportLabel.style.marginLeft = "20px";
-  exportLabel.style.font = "16px Arial";
-  exportLabel.style.fontWeight = "bold";
-  buttonContainer.appendChild(exportLabel);
 
   //Export Combo
   var exportOptions = ["PNG", "JPG"]; // Replace with your desired options
-  createCombo(exportOptions, buttonContainer, function (selectedValue) {
-    console.log("Export selected:", selectedValue);
-    if (selectedValue == "PNG") getPNGDataOfCurrentView();
-    else getJPGDataOfCurrentView();
-  });
+
   addOptionsToComboBoxDiv(
     "dropdown_menu",
     exportOptions,
@@ -1022,31 +886,10 @@ function createUI() {
   );
 
   var graphOptions = [20, 40, 60, 80, 100, 200]; // Replace with your desired options
-  createCombo(graphOptions, buttonContainer, function (selectedValue) {
-    console.log("Selected y interval:", selectedValue);
-
-    myConstants.Y_INTERVAL_VALUE = selectedValue;
-    DrawGraph();
-  });
 
   // View VA Group Normal
   var graphOptions = ["Normal", "Normal+VA", "Normal+VA+Group"]; // Replace with your desired options
-  createCombo(graphOptions, buttonContainer, function (selectedValue) {
-    console.log("Selected graph:", selectedValue);
-    graphDrawOptions = { drawNormal: false, drawVA: false };
-    if (selectedValue == "Normal") {
-      graphDrawOptions.drawNormal = true;
-    } else if (selectedValue == "Normal+VA") {
-      graphDrawOptions.drawNormal = true;
-      graphDrawOptions.drawVA = true;
-    } else if (selectedValue == "Normal+VA+Group") {
-      graphDrawOptions.drawNormal = true;
-      graphDrawOptions.drawVA = true;
-      graphDrawOptions.drawInGroups = true;
-    }
 
-    DrawGraph();
-  });
   addOptionsToComboBoxDiv(
     "dropdown_menu_normal",
     graphOptions,
@@ -1074,22 +917,7 @@ function createUI() {
     .then((docIdArray) => {
       // Handle the result here
       console.log("Result:", docIdArray);
-      var exportLabel = document.createElement("addOperatorLable");
-      exportLabel.textContent = "Compare with: ";
-      exportLabel.style.position = "relative";
-      exportLabel.style.marginLeft = "20px";
-      exportLabel.style.font = "16px Arial";
-      exportLabel.style.fontWeight = "bold";
-      buttonContainer.appendChild(exportLabel);
-      createMultiSelectCombo(
-        docIdArray,
-        buttonContainer,
-        function (selectedValue) {
-          console.log("Selected graph:", selectedValue);
-          prepareAndRenderGraphData(selectedValue);
-        },
-        "combo_id_compare"
-      );
+
       addOptionsToComboBoxDiv(
         "dropdown_menu_compare",
         docIdArray,
@@ -1116,22 +944,7 @@ function createUI() {
         }
       );
       // Update Doc
-      var exportLabel = document.createElement("addOperatorLable");
-      exportLabel.textContent = "Update Doc: ";
-      exportLabel.style.position = "relative";
-      exportLabel.style.marginLeft = "20px";
-      exportLabel.style.font = "16px Arial";
-      exportLabel.style.fontWeight = "bold";
-      buttonContainer.appendChild(exportLabel);
-      createCombo(
-        docIdArray,
-        buttonContainer,
-        function (selectedValue) {
-          console.log("Selected doc id:", selectedValue);
-          saveUpdatedDataToJson(selectedValue);
-        },
-        "combo_id_update_documents"
-      );
+
       addOptionsToComboBoxDiv(
         "dropdown_menu_update",
         docIdArray,
@@ -1140,16 +953,6 @@ function createUI() {
           saveUpdatedDataToJson(selectedValue);
         }
       );
-      var buttonData = [
-        {
-          tooltip: "",
-          label: '<span class="fa fa-save"></span> New Doc',
-          handler: function () {
-            saveUpdatedDataToJson(launchParameters.wtdocOid);
-          },
-        },
-      ];
-      createButton(buttonData, buttonContainer);
     })
     .catch((error) => {
       // Handle errors here
@@ -1157,22 +960,7 @@ function createUI() {
     });
 
   graphOptions = ["Basic", "Operator"]; // Replace with your desired options
-  createCombo(graphOptions, buttonContainer, function (selectedValue) {
-    console.log("Selected viewType:", selectedValue);
 
-    if (selectedValue == "Basic") {
-      viewType = viewTypeConst.BASIC;
-      DrawGraph();
-    } else if (selectedValue == "Operator") {
-      if (graphScenarioOptions.compareScenario) {
-        //alert("Operator view not available for compare scenario.");
-        //return false;
-      }
-
-      viewType = viewTypeConst.OPERATOR;
-      DrawGraph();
-    }
-  });
   addOptionsToComboBoxDiv(
     "dropdown_menu_operator",
     graphOptions,
@@ -1194,125 +982,13 @@ function createUI() {
     },
     "label-Operator"
   );
-  // add operator in Line
-  var exportLabel = document.createElement("addOperatorLable");
-  exportLabel.textContent = "New Station in: ";
-  exportLabel.style.position = "relative";
-  exportLabel.style.marginLeft = "20px";
-  exportLabel.style.font = "16px Arial";
-  exportLabel.style.fontWeight = "bold";
-  buttonContainer.appendChild(exportLabel);
 
   //New operator addition
   graphOptions = [];
-  createCombo(
-    graphOptions,
-    buttonContainer,
-    function (selectedValue, selectedIndex) {
-      addNewOperatorCumCell(selectedIndex - 1);
-    },
-    "combo_id_add_operator"
-  );
-
-  // add operator in Station . Same station multiple operator
-  var exportLabel = document.createElement("addOperatorLable");
-  exportLabel.textContent = "New Operator in: ";
-  exportLabel.style.position = "relative";
-  exportLabel.style.marginLeft = "20px";
-  exportLabel.style.font = "16px Arial";
-  exportLabel.style.fontWeight = "bold";
-  buttonContainer.appendChild(exportLabel);
 
   //New operator addition
   graphOptions = [];
-  createCombo(
-    graphOptions,
-    buttonContainer,
-    function (selectedValue, selectedIndex) {
-      addNewOperatorCumCellAfterCell(selectedIndex - 1);
-    },
-    "combo_id_add_operator_in_station"
-  );
 
-  //Existing operator addition
-  var existingOperatorAddition = {
-    tooltip: "Add existing operator to different Zone",
-    label: '<span class="fa fa-plus"></span>',
-    handler: function () {
-      // Create a prompt with a custom title
-      var input = prompt(
-        "Existing Line Index, Operator Index, Destination Line Index, Destination Station"
-      );
-
-      if (input !== null) {
-        // Split the input by commas and parse the values
-        var values = input.split(",").map(function (value) {
-          return parseInt(value);
-        });
-
-        // Check if we have three values
-        if (values.length === 4) {
-          // Call your function with the parsed values
-          addExistingOperatorCumCell(
-            values[0] - 1,
-            values[1] - 1,
-            values[2] - 1,
-            values[3] - 1
-          );
-        } else {
-          alert(
-            "Invalid input. Please provide three values separated by commas."
-          );
-        }
-      } else {
-        alert("User cancelled the input.");
-      }
-    },
-  };
-
-  createButton([existingOperatorAddition], buttonContainer);
-
-  // Rename operator
-  var renameOperatorButton = {
-    tooltip: "Rename operator",
-    label: '<span class="fa fa-edit"></span>',
-    handler: function () {
-      // Create a prompt with a custom title
-      var input = prompt(
-        "Source Line Index, Operator Index, Operator New Name"
-      );
-
-      if (input !== null) {
-        // Split the input by commas and parse the values
-        var values = input.split(",").map(function (value) {
-          return value;
-        });
-
-        // Check if we have three values
-        if (values.length === 3) {
-          // Call your function with the parsed values
-          renameOperator(values[0] - 1, values[1] - 1, values[2]);
-        } else {
-          alert(
-            "Invalid input. Please provide three values separated by commas."
-          );
-        }
-      } else {
-        alert("User cancelled the input.");
-      }
-    },
-  };
-  createButton([renameOperatorButton], buttonContainer);
-
-  // KPI table and button
-  var kpiTableButton = {
-    label: '<span class="fa fa-database"></span> KPI',
-    handler: function () {
-      showKPITable();
-    },
-  };
-  createButton([kpiTableButton], buttonContainer);
-  createOverlayKPITable(buttonContainer);
   createSidePanelKPITable();
   //Zoom buttons
   var zoomBtnContainer = document.createElement("zoomBtn");
@@ -2081,7 +1757,7 @@ function DrawGraph() {
       return line.Name;
     });
     graphOptions.unshift("Choose Line");
-    addOptionsToComboBox("combo_id_add_operator", graphOptions);
+
     addOptionsToComboBoxDiv(
       "dropdown_menu_address",
       graphOptions,
@@ -2094,7 +1770,7 @@ function DrawGraph() {
       ...linesArray.map((line) => line.Cells.map((cell) => cell.Name))
     );
     cellNamesArray.unshift("Choose Station");
-    addOptionsToComboBox("combo_id_add_operator_in_station", cellNamesArray);
+
     addOptionsToComboBoxDiv(
       "dropdown_menu_user",
       cellNamesArray,
@@ -2825,7 +2501,6 @@ function DrawGraph() {
         100
       ).toFixed(2) + "%";
 
-    updateKPITableData(kpiDataMap, kpiSecondaryDataMap);
     sampleKPITableData(kpiDataMap, kpiSecondaryDataMap);
   }
   // Icon in front of workstation ++
@@ -3193,7 +2868,7 @@ function shiftTimeUserInput() {
       if (inputValue != "") {
         kpiDataMap["Available time per shift"] = inputValue;
         console.log("Input Value:", inputValue);
-        updateKPITableData(kpiDataMap, kpiSecondaryDataMap);
+
         sampleKPITableData(kpiDataMap, kpiSecondaryDataMap);
         updateLimitLine();
       }
